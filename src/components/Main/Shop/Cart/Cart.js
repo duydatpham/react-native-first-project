@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import CartView from './CartView';
 
 class Cart extends Component {
     render() {
         return (
-            <View style={{backgroundColor:'red'}}>
-                <Text>Cart</Text>
-            </View>
+            <CartView />
+            // <TouchableOpacity style={{backgroundColor:'red'}} onPress={() => this.props.navigation.navigate('ProductList')}>
+            //     <Text>Cart</Text>
+                
+            // </TouchableOpacity>
         );
     }
 }

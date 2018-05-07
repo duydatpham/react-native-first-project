@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import SearchView from './SearchView';
 
 class Search extends Component {
     render() {
         return (
-            <View style={{backgroundColor:'blue'}}>
-                <Text>Search</Text>
-            </View>
+            <SearchView />
         );
     }
 }

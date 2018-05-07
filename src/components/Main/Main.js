@@ -7,6 +7,7 @@ import ChangeInfo from '../ChangeInfo/ChangeInfo';
 import OrderHistory from '../OrderHistory/OrderHistory';
 import Menu from './Menu';
 import Shop from './Shop/Shop';
+import ProductList from './Shop/ProductList/ProductList';
 
 class Main extends Component {
       closeControlPanel = () => {
@@ -24,7 +25,7 @@ class Main extends Component {
         return (
             <Drawer
             ref={(ref) => {this.drawer = ref}}
-            panOpenMask  = '0.25'
+            panOpenMask  = {0.25}
             tapToClose={true}
             openDrawerOffset={0.4}
             content={<Menu navigation={this.props.navigation}/>}
@@ -47,7 +48,7 @@ class Main extends Component {
                     title="Go to notifications"
                 />
             </View> */}
-            <Shop open={this.openControlPanel.bind(this)}/>
+            <Shop open={this.openControlPanel.bind(this)} navigation={this.props.navigation}/>
           </Drawer>
         );
     }
@@ -61,13 +62,23 @@ export default StackNavigator({
     },
     Authentication: {
         screen: Authentication,
+        navigationOptions: {
+            header: null
+        }
     },
     ChangeInfo: {
         screen: ChangeInfo
     },
     OrderHistory: {
         screen: OrderHistory
-    }
+    },
+    ProductList: {
+        screen: ProductList,
+        navigationOptions: {
+            header: null
+        }
+    },
+    
 }, {
         initialRouteName: 'Home'
     }
