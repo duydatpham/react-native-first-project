@@ -8,6 +8,7 @@ import OrderHistory from '../OrderHistory/OrderHistory';
 import Menu from './Menu';
 import Shop from './Shop/Shop';
 import ProductList from './Shop/ProductList/ProductList';
+import ProductDetail from './Shop/ProductDetail/ProductDetail';
 
 class Main extends Component {
       closeControlPanel = () => {
@@ -78,7 +79,12 @@ export default StackNavigator({
             header: null
         }
     },
-    
+    ProductDetail: {
+        screen: ProductDetail,
+        navigationOptions: {
+            header: null
+        }
+    },
 }, {
         initialRouteName: 'Home'
     }

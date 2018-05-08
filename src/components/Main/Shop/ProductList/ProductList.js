@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native"
+import { View, Text, StyleSheet, Image, ScrollViewm, TouchableOpacity } from "react-native"
 
 export default class ProductList extends Component {
   render() {
@@ -8,9 +8,11 @@ export default class ProductList extends Component {
       <View style={wrapper}>
         <ScrollView style={content}>
           <View style={topWrapper}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Image source={require('../../../../assets/appicon/backList.png')} style={icon} />
             <Text style={topText}>this is product list</Text>
             <View></View>
+            </TouchableOpacity>
           </View>
           <View>
             <View style={productWrapper}>

@@ -5,13 +5,28 @@ import Category from './Category';
 import TopProduct from './TopProduct';
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            topProducts : []
+        }
+    }
+    
+    componentWillReceiveProps(nextProps){
+        const { topProducts } = nextProps;
+        this.setState({
+            topProducts
+        })
+        
+    }
     render() {
+        const { types, topProducts } = this.props;
         return (
             <ScrollView
              style={{ flex:1, backgroundColor:'#DBDBDB'}}>
                 <Collection/>
-                <Category />
-                <TopProduct navigation={this.props.navigation}/>
+                <Category types={types} />
+                <TopProduct navigation={this.props.navigation} topProducts={this.state.topProducts}/>
                 <TouchableOpacity >
                     <Text>on press</Text>
                 </TouchableOpacity>

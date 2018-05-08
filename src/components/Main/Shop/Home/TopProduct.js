@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, ListView } from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const productWidth = (width - 50) / 2;
 const productHeight = (productWidth / 361) * 452;
 
 export default class TopProduct extends Component {
+    constructor(props) {
+        super(props);
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.state = {
+            dataSource: ds.cloneWithRows([]),
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        const { topProducts } = nextProps;
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(topProducts)
+        })
+    }
     render() {
         const { wrapper, titleHeader, productContainer, textName, textPrice, imageProduct } = styles;
         return (
@@ -13,29 +26,21 @@ export default class TopProduct extends Component {
                 <View>
                     <Text style={titleHeader}>Top Product</Text>
                 </View>
-                <View style={productContainer}>
-                    <TouchableOpacity style={styles.product} onPress={() => this.props.navigation.navigate('ProductList')}>
-                        <Image source={require('../../../../assets/temp/sp1.jpeg')} style={imageProduct} />
-                        <Text style={textName}>Product Name</Text>
-                        <Text style={textPrice}>$300</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.product}>
-                        <Image source={require('../../../../assets/temp/sp2.jpeg')} style={imageProduct} />
-                        <Text style={textName}>Product Name</Text>
-                        <Text style={textPrice}>$300</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.product}>
-                        <Image source={require('../../../../assets/temp/sp3.jpeg')} style={imageProduct} />
-                        <Text style={textName}>Product Name</Text>
-                        <Text style={textPrice}>$300</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.product}>
-                        <Image source={require('../../../../assets/temp/sp4.jpeg')} style={imageProduct} />
-                        <Text style={textName}>Product Name</Text>
-                        <Text style={textPrice}>$300</Text>
-                    </TouchableOpacity>
+                    <ListView
+                        contentContainerStyle={productContainer}
+                        dataSource={this.state.dataSource}
+                        enableEmptySections={true}
+                        renderRow={(row) =>(
+                            <TouchableOpacity style={styles.product} onPress={() => this.props.navigation.navigate('ProductDetail', {
+                                product:row
+                              })}>
+                                <Image source={{uri:`http://192.168.2.109/webservice/app/images/product/${row.images[1]}`}} style={imageProduct} />
+                                <Text style={textName}>{row.name}</Text>
+                                <Text style={textPrice}>${row.price}</Text>
+                            </TouchableOpacity>    
+                        )}
+                    />
                 </View>
-            </View>
         );
     }
 }
@@ -51,13 +56,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "gray"
     },
-    product:{
+    product: {
         borderWidth: 1,
         borderRadius: 2,
         borderColor: '#ddd',
         borderBottomWidth: 0,
         elevation: 1,
-        justifyContent:"center", 
+        justifyContent: "center",
         alignItems: "center",
         marginTop: 10
     },
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
         // backgroundColor: "red",
         // height: productHeight,
         // width: productWidth,
-        
+
         flexDirection: "row",
         justifyContent: "space-around",
         // alignItems: "center"

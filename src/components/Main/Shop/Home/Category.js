@@ -7,6 +7,10 @@ const { height, width } = Dimensions.get('window');
 class Category extends Component {
     render() {
         const { wrapper, text,  imageStyle } = styles;
+
+        const {types} = this.props;
+
+       
         return (
            <View style={wrapper}>
                 <View style={{ flex:1 }}>
@@ -14,12 +18,12 @@ class Category extends Component {
                 </View>
                 <View style={{ flex:4 }}>
                 <Swiper height={imageHeight} width={imageWidth} showsPagination={true} showsButtons={true}>
-                    <View style={{position: 'relative'}}>
-                        <Image source={require('../../../../assets/temp/little.jpg')} style={imageStyle}/> 
-                        <Text style={styles.cateText}>Maxi</Text>
-                    </View>
-                    <Image source={require('../../../../assets/temp/little.jpg')} style={imageStyle}/>
-                    <Image source={require('../../../../assets/temp/little.jpg')} style={imageStyle}/>
+                    { types.map(e => (
+                        <View style={{position: 'relative'}} key={e.id}>
+                        <Image source={{uri:`http://192.168.2.109/webservice/app/images/type/${e.image}`}} style={imageStyle}/> 
+                        <Text style={styles.cateText}>{e.name}{`http://192.168.2.109/webservice/app/images/type/${e.image}`}</Text>
+                        </View>
+                    ))}
                 </Swiper>
                 </View>
            </View>
